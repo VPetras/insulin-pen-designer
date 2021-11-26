@@ -12,8 +12,22 @@ import sys
 # main
 ###
 
+url = 'http://127.0.0.1:5000'
+headers = {
+    'accept': 'application/json',
+    'Content-Type': 'application/json',
+    'x-api-key': ''
+}
+
 def main():
-    print("hello world")
+
+    with open('api.key', 'r') as apikey:
+        key = apikey.read().replace('\n', '')
+    headers['x-api-key'] = key
+
+    data = {'a': 40,'b':30}
+    r = requests.post(url + '/get_stl',headers=headers,data=data)
+    print(r.status_code, r.reason)
 
 ###
 # run
