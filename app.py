@@ -15,7 +15,8 @@
 import sys
 
 import flask
-from flask import request, abort
+from flask import request, abort, send_file
+from flask_cors import CORS, cross_origin
 from functools import wraps
 
 ###
@@ -24,6 +25,8 @@ from functools import wraps
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 def require_appkey(view_function):
     @wraps(view_function)
@@ -46,7 +49,7 @@ def home():
 @require_appkey
 def get_stl():
     print('post')
-    return '200'
+    return send_file('STL/test.stl')
 
 ###
 # run
@@ -54,7 +57,7 @@ def get_stl():
 
 if __name__ == '__main__':
     try:
-        app.run()
+        app.run(host='0.0.0.0',port=8000)
     except Exception as e:
         print('Exited with error: {}'.format(e))
         sys.exit(1)

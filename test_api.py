@@ -12,7 +12,7 @@ import sys
 # main
 ###
 
-url = 'http://127.0.0.1:5000'
+url = 'http://127.0.0.1:8000'
 headers = {
     'accept': 'application/json',
     'Content-Type': 'application/json',
@@ -28,6 +28,7 @@ def main():
     data = {'a': 40,'b':30}
     r = requests.post(url + '/get_stl',headers=headers,data=data)
     print(r.status_code, r.reason)
+    open('respond_file.stl', 'wb').write(r.content)
 
 ###
 # run
